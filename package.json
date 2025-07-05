@@ -15,5 +15,9 @@
     "url": "https://github.com/KaiH19/Fleet-Management/issues"
   },
   "homepage": "https://github.com/KaiH19/Fleet-Management#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.16.1"
+  }
 }
