@@ -1,13 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [statusMessage, setStatusMessage] = useState('');
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/status')
+      .then((res) => res.json())
+      .then((data) => setStatusMessage(data.message))
+      .catch((err) => {
+        console.error('Error fetching backend:', err);
+        setStatusMessage('Could not connect to backend');
+      });
+  }, []);
+
   return (
-    <div>
+    <div style={{ padding: '2rem' }}>
       <h1>Fleet Management Dashboard</h1>
-      <p>Frontend is up and running.</p>
+      <p>Backend says: <strong>{statusMessage}</strong></p>
     </div>
   );
 }
