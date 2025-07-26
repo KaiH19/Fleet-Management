@@ -1,23 +1,25 @@
-import './App.css'
-import { useEffect, useState } from 'react';
+import './App.css';
+import MapView from './components/MapView';
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [statusMessage, setStatusMessage] = useState('');
+  const [vehicles, setVehicles] = useState([]);
 
   useEffect(() => {
-    fetch('/api/status')
-      .then((res) => res.json())
-      .then((data) => setStatusMessage(data.message))
-      .catch((err) => {
-        console.error('Error fetching backend:', err);
-        setStatusMessage('Could not connect to backend');
-      });
+    const ws = new WebSocket('ws://localhost:5000'); // WebSocket connection to backend
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setVehicles(data.vehicles); // Expecting { vehicles: [...] }
+    };
+
+    return () => ws.close();
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div style={{ padding: '1rem' }}>
       <h1>Fleet Management Dashboard</h1>
-      <p>Backend says: <strong>{statusMessage}</strong></p>
+      <MapView vehicles={vehicles} />
     </div>
   );
 }

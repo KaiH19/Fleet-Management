@@ -66,3 +66,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.vehicle-marker {
+  border: 2px solid white;
+  box-shadow: 0 0 5px #000;
+}
