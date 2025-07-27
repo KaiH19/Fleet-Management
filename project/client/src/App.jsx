@@ -6,15 +6,16 @@ function App() {
   const [vehicles, setVehicles] = useState([]);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:5000'); // WebSocket connection to backend
+  const ws = new WebSocket('ws://localhost:5000');
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setVehicles(data.vehicles); // Expecting { vehicles: [...] }
-    };
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log('Received from backend:', data);//log
+    setVehicles(data.vehicles);
+  };
 
-    return () => ws.close();
-  }, []);
+  return () => ws.close();
+}, []);
 
   return (
     <div style={{ padding: '1rem' }}>
