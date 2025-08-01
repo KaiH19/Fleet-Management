@@ -19,7 +19,6 @@ app.get('/api/status', (req, res) => {
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-// ---- Mock GPS vehicle data ----
 let vehicles = [
   {
     id: 'V001',
@@ -61,7 +60,7 @@ function updateVehiclePositions() {
       latitude: vehicle.latitude + deltaLat,
       longitude: vehicle.longitude + deltaLon,
       speed: Math.round(randomSpeed),
-      fuel: Math.round(newFuelLevel * 100) / 100 //then use it
+      fuel: Math.round(newFuelLevel * 100) / 100 
     };
   });
 }
@@ -82,7 +81,6 @@ setInterval(() => {
   broadcastVehicleData();
 }, 1000);
 
-// ---- Start the server ----
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

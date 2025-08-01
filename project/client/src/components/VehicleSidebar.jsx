@@ -1,4 +1,3 @@
-// src/components/VehicleSidebar.jsx
 import React from 'react';
 
 const VehicleSidebar = ({ vehicles }) => {
